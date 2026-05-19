@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise For You! ✨</title>
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Ambient background canvas for glowing floating particles -->
+    <canvas id="bg-particles"></canvas>
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Global Controls -->
+    <div class="global-controls">
+        <button id="sound-toggle" aria-label="Toggle sound" class="control-btn glow-effect">
+            <i class="fas fa-volume-up"></i>
+        </button>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <main id="app-container">
+
+        <!-- INTRO SCREEN: THE MYSTERIOUS BOX -->
+        <section id="intro-screen" class="active-stage">
+            <div class="intro-content">
+                <h1 class="glow-text animate-fade-in">Hey there!</h1>
+                <p class="subtitle animate-fade-in-delayed">Someone thinks you are incredibly awesome and left a little surprise package for you...</p>
+                
+                <div class="gift-container" id="gift-box-btn">
+                    <div class="gift-box">
+                        <div class="gift-lid"></div>
+                        <div class="gift-body"></div>
+                        <div class="gift-ribbon-v"></div>
+                        <div class="gift-ribbon-h"></div>
+                        <div class="gift-bow"></div>
+                    </div>
+                    <div class="gift-glow"></div>
+                    <div class="gift-shadow"></div>
+                </div>
+
+                <p class="tap-instruction animate-pulse">🎁 Tap the box to open your surprise! 🎁</p>
+            </div>
+        </section>
+
+        <!-- STAGE 1: THE MEMORY / APPRECIATION CARDS -->
+        <section id="stage-1" class="stage-hidden">
+            <div class="stage-header">
+                <span class="stage-indicator">1 of 4</span>
+                <h2>For Someone Truly Special</h2>
+                <p>A few reminders of the beautiful things about you...</p>
+            </div>
+
+            <div class="polaroid-container">
+                <!-- Card 1 -->
+                <div class="polaroid-card active-card" data-card="1">
+                    <div class="polaroid-img-placeholder gradient-1">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <div class="polaroid-caption">
+                        <h3>Your Smile</h3>
+                        <p>It genuinely has the power to brighten even the darkest days. Your happiness is my absolute favorite sight.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="polaroid-card" data-card="2">
+                    <div class="polaroid-img-placeholder gradient-2">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <div class="polaroid-caption">
+                        <h3>Your Warmth</h3>
+                        <p>You have this incredibly calming, beautiful presence. Simply being around you makes the whole world feel better.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="polaroid-card" data-card="3">
+                    <div class="polaroid-img-placeholder gradient-3">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="polaroid-caption">
+                        <h3>Truly Special</h3>
+                        <p>You are rare, kind-hearted, and completely one of a kind. There is absolutely no one else like you.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation-controls">
+                <button id="prev-card-btn" class="nav-btn small-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                <button id="next-card-btn" class="nav-btn small-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+
+            <div class="stage-action">
+                <button id="to-stage-2-btn" class="btn-primary glow-btn stage-trigger-btn">Proceed to Stage 2 🚀</button>
+            </div>
+        </section>
+
+        <!-- STAGE 2: VIRTUAL BUBBLE WRAP (POP OUT STRESS) -->
+        <section id="stage-2" class="stage-hidden">
+            <div class="stage-header">
+                <span class="stage-indicator">2 of 4</span>
+                <h2>Interactive Bubble Pops!</h2>
+                <p>Pop the glowing circles to unlock pleasant audio chimes & release happy vibes!</p>
+            </div>
+
+            <div class="bubble-wrap-container">
+                <div class="bubble-grid" id="bubble-grid">
+                    <!-- Javascript will dynamically populate 24 gorgeous popping bubbles with sound triggers -->
+                </div>
+                <div class="bubble-score">
+                    <span>Bubbles popped: <strong id="pop-count">0</strong> / 24</span>
+                </div>
+            </div>
+
+            <div class="stage-action">
+                <button id="to-stage-3-btn" class="btn-primary glow-btn stage-trigger-btn" disabled>Pop all bubbles to continue! 🔒</button>
+            </div>
+        </section>
+
+        <!-- STAGE 3: THE APPRECIATION WHEEL -->
+        <section id="stage-3" class="stage-hidden">
+            <div class="stage-header">
+                <span class="stage-indicator">3 of 4</span>
+                <h2>The Wheel of Appreciation</h2>
+                <p>Spin the magical glowing wheel to receive a special reminder!</p>
+            </div>
+
+            <div class="wheel-outer-container">
+                <div class="wheel-pointer"><i class="fa-solid fa-location-pin"></i></div>
+                <div class="wheel-canvas-container">
+                    <canvas id="wheel-canvas" width="400" height="400"></canvas>
+                </div>
+                <button id="spin-btn" class="glow-btn">SPIN!</button>
+            </div>
+
+            <div class="wheel-result-container" id="wheel-result">
+                <!-- Javascript will display result message here -->
+                <p class="wheel-result-text">Click SPIN to reveal a beautiful thought!</p>
+            </div>
+
+            <div class="stage-action">
+                <button id="to-stage-4-btn" class="btn-primary glow-btn stage-trigger-btn" disabled>Spin the wheel to proceed! 🔒</button>
+            </div>
+        </section>
+
+        <!-- STAGE 4: THE GOLDEN ENVELOPE (FINAL SURPRISE) -->
+        <section id="stage-4" class="stage-hidden">
+            <div class="stage-header">
+                <span class="stage-indicator">4 of 4</span>
+                <h2>The Final Letter</h2>
+                <p>You've unlocked the ultimate surprise. Open the wax seal...</p>
+            </div>
+
+            <div class="envelope-wrapper">
+                <div class="envelope" id="envelope-element">
+                    <div class="envelope-front"></div>
+                    <div class="envelope-flap"></div>
+                    <div class="envelope-back"></div>
+                    <div class="envelope-seal" id="envelope-seal-btn">
+                        <span class="seal-icon">❤</span>
+                    </div>
+                    
+                    <div class="envelope-letter" id="envelope-letter">
+                        <div class="letter-scrollable">
+                            <div class="letter-header">
+                                <span class="letter-date" id="current-date">May 19, 2026</span>
+                                <h3>For Someone Truly Special,</h3>
+                            </div>
+                            <div class="letter-body">
+                                <p>I wanted to make this simple, magical page just for you, to remind you of how incredibly much you mean to me.</p>
+                                <p>There are some people who come into your life and make everything feel lighter, brighter, and infinitely more beautiful. You are that person for me.</p>
+                                <p>Your kindness inspires me, your laughter is my favorite sound, and simply knowing you are in my life makes every day so much better.</p>
+                                <p>Thank you for being your genuine, brilliant, and wonderful self. No matter where life takes us, never forget that you are deeply appreciated, cherished, and valued. Always.</p>
+                                <p class="sign-off">With all my warmth,<br><span class="handwritten">Yours</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="final-actions" id="final-actions" style="opacity: 0; pointer-events: none; transition: opacity 0.8s ease;">
+                <button id="celebrate-btn" class="btn-primary glow-btn"><i class="fa-solid fa-cake-candles"></i> Relaunch Confetti! 🎈</button>
+                <button id="restart-btn" class="btn-secondary"><i class="fa-solid fa-rotate-left"></i> Experience Again</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Interactive script -->
+    <script src="script.js"></script>
+</body>
+</html>
